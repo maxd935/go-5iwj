@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 )
 
 func main() {
@@ -26,4 +28,11 @@ func main() {
 		fmt.Println("Dans ma valise, il y a...", slice)
 		fmt.Println(text)
 	}
+}
+
+// Autre methode pour Rentrer une valeur
+func reader() {
+	reader := bufio.NewReader(os.Stdin)
+	text, _ := reader.ReadString('\n')
+	fmt.Println(text)
 }
