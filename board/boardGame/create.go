@@ -17,7 +17,7 @@ const ORIENTATION_VERTICALE = 2
 
 func CreateBoardGame() ([10][10]int, []structs.Shipe) {
 	fmt.Println("> CreateBoardGame")
-	boardGame := createTab()
+	boardGame := CreateTab()
 	var shipeSlic []structs.Shipe
 	for i := 0; i < MAX_SHIPE; i++ {
 		shipeNew := createShipe()
@@ -27,7 +27,7 @@ func CreateBoardGame() ([10][10]int, []structs.Shipe) {
 	return boardGame, shipeSlic
 }
 
-func createTab() [10][10]int {
+func CreateTab() [10][10]int {
 	fmt.Println(">> createTab")
 	var boardGame [SIZE_BOARD][SIZE_BOARD]int
 	return boardGame
