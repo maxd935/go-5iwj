@@ -1,6 +1,7 @@
 package boardGame
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -76,7 +77,56 @@ func nbrBateau() int {
 	return responseObject.NbrBateau
 }
 
+type Attack struct {
+	NameTo string
+	Power  int
+}
+
 func launchAttack() {
 	fmt.Println(">>> launchAttack")
 
+	attack := createAttack()
+	fmt.Println(attack)
+
+	json_data, err := json.Marshal(attack)
+	fmt.Println(json_data)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var URL_SERVER = init_adress()
+	fmt.Println(URL_SERVER + "/add")
+	resp, err := http.Post(URL_SERVER+"/add", "application/json", bytes.NewBuffer(json_data))
+	fmt.Println("AFTER POST")
+	fmt.Println(resp)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var res map[string]interface{}
+	fmt.Println(res)
+
+	json.NewDecoder(resp.Body).Decode(&res)
+	fmt.Println(res)
+
+	fmt.Println(res["json"])
+
+}
+
+func createAttack() Attack {
+	fmt.Println(">>>>> createAttack")
+
+	var nameTo string
+	fmt.Print("Entrer le pseudo de votre adversaire: ")
+	fmt.Scanf("%s", &nameTo)
+
+	var power int
+	fmt.Print("Entrer la puissance de votre attaque: ")
+	fmt.Scanf("%d", &power)
+
+	attack := Attack{nameTo, power}
+
+	return attack
 }
